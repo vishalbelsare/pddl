@@ -50,6 +50,7 @@ from pddl.logic.functions import (
     ScaleDown,
     ScaleUp,
     Times,
+    UnaryMinus,
 )
 from pddl.logic.predicates import DerivedPredicate, EqualTo, Predicate
 from pddl.logic.terms import Constant, Variable
@@ -451,7 +452,8 @@ class DomainTransformer(Transformer[Any, Domain]):
             return args[0]
         op = None
         if args[1] == Symbols.MINUS.value:
-            op = Minus
+            n = len(args[2:-1])
+            op = UnaryMinus if n == 1 else Minus
         if args[1] == Symbols.PLUS.value:
             op = Plus
         if args[1] == Symbols.TIMES.value:
